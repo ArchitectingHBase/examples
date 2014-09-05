@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.architectinghbaseapplications</groupId>
+  <artifactId>hbase-architecting</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging>
+
+  <name>Architecting HBase Application Book</name>
+  <url>http://www.google.com</url>
+
+  <scm>
+    <connection>scm:git:git://github.com/ArchitectingHBase/examples.git</connection>
+    <developerConnection>scm:git:git@github.com:ArchitectingHBase/examples.git</developerConnection>
+    <url>https://github.com/ArchitectingHBase/examples</url>
+  </scm>
+
+  <properties>
+    <jdkLevel>1.7</jdkLevel>
+    <requiredMavenVersion>[3.0,)</requiredMavenVersion>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.1</version>
+        <configuration>
+          <source>${jdkLevel}</source>
+          <target>${jdkLevel}</target>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.collections</groupId>
+      <artifactId>google-collections</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.16</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hbase</groupId>
+      <artifactId>hbase-client</artifactId>
+      <version>0.96.0-hadoop2</version>
+    </dependency>
+  </dependencies>
+</project>
