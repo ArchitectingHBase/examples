@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>hbase-architecting</groupId>
-	<artifactId>examples</artifactId>
+	<groupId>architecting-hbase-applications</groupId>
+	<artifactId>architecting-hbase-applications-examples</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<repositories>
 		<repository>
@@ -24,7 +24,7 @@
 		<hadoop.mr1.version>2.4.1</hadoop.mr1.version>
 		<junit.version>4.8.1</junit.version>
 		<jdo2-api.version>2.2</jdo2-api.version>
-		<hbase.version>0.98.5-hadoop2</hbase.version>
+		<hbase.version>0.98.6-hadoop2</hbase.version>
 	</properties>
 	<dependencies>
 		<dependency>
