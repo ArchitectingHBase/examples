@@ -11,6 +11,7 @@ import org.apache.hadoop.hbase.ZooKeeperConnectionException;
 import org.apache.hadoop.hbase.client.HBaseAdmin;
 
 import com.google.protobuf.ServiceException;
+//tag::TEST1[]
 
 public class TestInstallation {
   private static final Log LOG = LogFactory.getLog(TestInstallation.class);
@@ -32,3 +33,4 @@ public class TestInstallation {
     }
   }
 }
+//end::TEST1[]

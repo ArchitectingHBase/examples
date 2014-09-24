@@ -19,7 +19,7 @@ public class Describe {
     // Instantiate default HBase configuration object.
     // Configuration file must be in the classpath
     Configuration conf = HBaseConfiguration.create();
-    // START DESCRIBE
+    // tag::DESCRIBE
     HBaseAdmin admin = new HBaseAdmin(conf);
     HTableDescriptor desc = admin.getTableDescriptor(TableName.valueOf("crc"));
     Collection<HColumnDescriptor> families = desc.getFamilies();
@@ -28,7 +28,7 @@ public class Describe {
       HColumnDescriptor family = iterator.next();
       System.out.println("Family details: " + family);
     }
-    // END DESCRIBE
+    // end::DESCRIBE
     admin.close();
   }
 }
