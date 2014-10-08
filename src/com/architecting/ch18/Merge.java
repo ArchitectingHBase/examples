@@ -21,7 +21,7 @@ public class Merge {
   private static final Log LOG = LogFactory.getLog(Merge.class);
 
   public static void main(String[] args) throws MasterNotRunningException, ZooKeeperConnectionException, IOException {
-    //tag::MERGE1[]
+    // tag::MERGE1[]
     Configuration conf = HBaseConfiguration.create();
     Connection connection = ConnectionFactory.createConnection(conf);
     HBaseAdmin admin = (HBaseAdmin)connection.getAdmin();
@@ -35,7 +35,7 @@ public class Merge {
                          region2.getEncodedNameAsBytes(), false); //<2>
     }
     admin.close();
-    //end::MERGE1[]
+    // end::MERGE1[]
   }
 
 }

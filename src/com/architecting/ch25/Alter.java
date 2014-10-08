@@ -1,4 +1,4 @@
-package com.architecting.ch26;
+package com.architecting.ch25;
 
 public class Alter {
   public static void main(String[] args) {

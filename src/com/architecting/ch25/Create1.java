@@ -1,4 +1,4 @@
-package com.architecting.ch26;
+package com.architecting.ch25;
 
 import java.io.IOException;
 
@@ -11,22 +11,20 @@ import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.ZooKeeperConnectionException;
 import org.apache.hadoop.hbase.client.HBaseAdmin;
 
-public class Create4 {
+public class Create1 {
 
-  public static void main(String[] args) throws MasterNotRunningException, ZooKeeperConnectionException, IOException {
+  public static void main(String[] args)
+    throws MasterNotRunningException, ZooKeeperConnectionException,
+           IOException {
+    // tag::CREATE1[]
     Configuration conf = HBaseConfiguration.create();
     HBaseAdmin admin = new HBaseAdmin(conf);
-    // tag::CREATE4[]
-    HTableDescriptor desc = new HTableDescriptor(TableName.valueOf("access"));
-    HColumnDescriptor family = new HColumnDescriptor("d");
-    family.setValue("comment", "Last user access date");
-    family.setMaxVersions(10);
-    family.setMinVersions(2);
-    family.setTimeToLive(2678400);
+    HTableDescriptor desc = 
+      new HTableDescriptor(TableName.valueOf("testtable_create1"));
+    HColumnDescriptor family = new HColumnDescriptor("f1");
     desc.addFamily(family);
     admin.createTable(desc);
-    // end::CREATE4[]
+    // end::CREATE1[]
     admin.close();
   }
-
 }

@@ -1,4 +1,4 @@
-package com.architecting.ch26;
+package com.architecting.ch25;
 
 import java.io.IOException;
 import java.util.HashMap;
