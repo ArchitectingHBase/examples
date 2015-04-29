@@ -37,13 +37,9 @@ public class ConvertToHFiles extends Configured implements Tool {
     try {
       Configuration conf = HBaseConfiguration.create();
       Connection connection = ConnectionFactory.createConnection(conf);
-      conf.set("mapreduce.jobtracker.address", "local");
-      conf.set("fs.defaultFS","file:///");
 
       String inputPath = args[0];
-      inputPath = "/home/jmspaggiari/workspace/architecting-hbase-applications-examples/resources/ch09/omneo.csv";
       String outputPath = args[1];
-      outputPath = "/home/jmspaggiari/workspace/architecting-hbase-applications-examples/resources/ch09/output" + System.currentTimeMillis();
       final TableName tableName = TableName.valueOf(args[2]);
       Table table = connection.getTable(tableName);
 
