@@ -24,7 +24,7 @@
 		<hadoop.mr1.version>2.4.1</hadoop.mr1.version>
 		<junit.version>4.8.1</junit.version>
 		<jdo2-api.version>2.2</jdo2-api.version>
-		<hbase.version>0.99.0</hbase.version>
+		<hbase.version>1.0.0</hbase.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -91,6 +91,16 @@
 			<groupId>org.apache.hbase</groupId>
 			<artifactId>hbase-server</artifactId>
 			<version>${hbase.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.hbase</groupId>
+			<artifactId>hbase-common</artifactId>
+			<version>${hbase.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.avro</groupId>
+			<artifactId>avro</artifactId>
+			<version>1.7.4</version>
 		</dependency>
 	</dependencies>
 
