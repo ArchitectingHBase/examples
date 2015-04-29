@@ -1,0 +1,14 @@
+
+{"namespace": "com.architecting.ch09",
+ "type": "record",
+ "name": "Event",
+ "fields": [
+     {"name": "id", "type": "string"},
+     {"name": "eventid",  "type": "string"},
+     {"name": "docType",  "type": "string"},
+     {"name": "partName",  "type": "string"},
+     {"name": "partNumber",  "type": "string"},
+     {"name": "version",  "type": "long"},
+     {"name": "payload",  "type": "string"}
+ ]
+}
