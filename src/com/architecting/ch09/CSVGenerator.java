@@ -34,6 +34,17 @@ public class CSVGenerator {
   public static String generatePartName () {
     return "NE-" + random.nextInt(1000);
   }
+  
+  public static final StringBuffer buffer = new StringBuffer(1024);
+  public static String generatePayLoad () {
+	  buffer.setLength(0);
+	  int length = 64 + random.nextInt(64);
+	  for (int i = 0; i < length; i++) {
+		  buffer.append((char)(65 + random.nextInt(26)));
+	  }
+	  buffer.append(" ");
+	  return buffer.toString();
+  }
 
   public static String generatePartNumber () {
     return random.nextInt(1) +
@@ -52,12 +63,12 @@ public class CSVGenerator {
 
 
   public static void main(String[] args) {
-    System.out.println ("Generaging...");
+	System.out.println ("Generaging...");
     //BufferedWriter bw = null;
     BufferedWriter bw;
     try {
       bw = new BufferedWriter (new FileWriter("./resources/ch09/omneo.csv"));
-      for (int index = 0; index < 1000000; index++) {
+      for (int index = 0; index < 10000000; index++) {
         String id = generateId();
         bw.write(id);
         bw.write(",");
@@ -71,7 +82,7 @@ public class CSVGenerator {
         bw.write(",");
         bw.write("1");
         bw.write(",");
-        bw.write("Payload data received from the upstream system for sensor " + id);
+        bw.write(generatePayLoad() + id);
         bw.newLine();
       }
       bw.flush();

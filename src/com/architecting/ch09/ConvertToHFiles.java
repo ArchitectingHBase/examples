@@ -6,7 +6,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.TableName;
@@ -23,7 +22,7 @@ import org.apache.hadoop.util.ToolRunner;
 
 
 public class ConvertToHFiles extends Configured implements Tool {
-  
+
   private static final Log LOG = LogFactory.getLog(ConvertToHFiles.class);
 
   public static void main(String[] args) throws Exception {
@@ -33,7 +32,6 @@ public class ConvertToHFiles extends Configured implements Tool {
 
   @Override
   public int run(String[] args) throws Exception {
-    System.out.println ("new");
     try {
       Configuration conf = HBaseConfiguration.create();
       Connection connection = ConnectionFactory.createConnection(conf);
@@ -41,28 +39,31 @@ public class ConvertToHFiles extends Configured implements Tool {
       String inputPath = args[0];
       String outputPath = args[1];
       final TableName tableName = TableName.valueOf(args[2]);
+
+      // tag::SETUP[]
       Table table = connection.getTable(tableName);
 
-      Job job = Job.getInstance(conf, "Convert CVS files to HFiles");
-      //HFileOutputFormat2.configureIncrementalLoadMap(job, table);
-      HFileOutputFormat2.configureIncrementalLoad(job, table, connection.getRegionLocator(tableName));
+      Job job = Job.getInstance(conf, "com.architecting.ch09.ConvertToHFiles: Convert CVS files to HFiles");
 
-      job.setSpeculativeExecution(false);
-      job.setReduceSpeculativeExecution(false);
+      HFileOutputFormat2.configureIncrementalLoad(job, table, connection.getRegionLocator(tableName)); // <1>
+      job.setInputFormatClass(TextInputFormat.class); // <2>
 
-      job.setInputFormatClass(TextInputFormat.class);
+      job.setSpeculativeExecution(false); // <3>
+      job.setReduceSpeculativeExecution(false); // <3>
 
-      job.setJarByClass(ConvertToHFiles.class);
 
-      //job.setReducerClass(ConvertToHFilesReducer.class);
-      job.setMapperClass(ConvertToHFilesMapper.class);
-      job.setMapOutputKeyClass(ImmutableBytesWritable.class);
-      job.setMapOutputValueClass(KeyValue.class);
+      job.setJarByClass(ConvertToHFiles.class); // <4>
 
-      FileInputFormat.setInputPaths(job, inputPath);
-      HFileOutputFormat2.setOutputPath(job, new Path(outputPath));
+      // Since we might be running directly from Eclipse, let's hard code the jar path 
+      job.setJar("/home/cloudera/ahae/target/ahae.jar"); // <4>
 
-      System.out.println(table.getTableDescriptor().getColumnFamilies()[0].getNameAsString());
+      job.setMapperClass(ConvertToHFilesMapper.class); // <5>
+      job.setMapOutputKeyClass(ImmutableBytesWritable.class); // <6>
+      job.setMapOutputValueClass(KeyValue.class); // <7>
+
+      FileInputFormat.setInputPaths(job, inputPath); // <8>
+      HFileOutputFormat2.setOutputPath(job, new Path(outputPath)); // <9>
+      // end::SETUP[]
 
       if (!job.waitForCompletion(true)) {
         LOG.error("Failure");
@@ -74,17 +75,5 @@ public class ConvertToHFiles extends Configured implements Tool {
       e.printStackTrace();
     }
     return 1;
-
-  }
-
-  @Override
-  public Configuration getConf() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
-  public void setConf(Configuration arg0) {
-    // TODO Auto-generated method stub
   }
 }
