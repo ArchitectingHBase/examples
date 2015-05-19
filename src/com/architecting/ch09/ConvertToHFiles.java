@@ -43,26 +43,27 @@ public class ConvertToHFiles extends Configured implements Tool {
       // tag::SETUP[]
       Table table = connection.getTable(tableName);
 
-      Job job = Job.getInstance(conf, "com.architecting.ch09.ConvertToHFiles: Convert CVS files to HFiles");
+      Job job = Job.getInstance(conf, "ConvertToHFiles: Convert CSV to HFiles");
 
-      HFileOutputFormat2.configureIncrementalLoad(job, table, connection.getRegionLocator(tableName)); // <1>
+      HFileOutputFormat2.configureIncrementalLoad(job, table,
+                                        connection.getRegionLocator(tableName)); // <1>
       job.setInputFormatClass(TextInputFormat.class); // <2>
 
       job.setSpeculativeExecution(false); // <3>
       job.setReduceSpeculativeExecution(false); // <3>
 
+      job.setJarByClass(ConvertToHFiles.class);
 
-      job.setJarByClass(ConvertToHFiles.class); // <4>
+      // Since we might be running directly from Eclipse,
+      // let's hard code the jar path too. 
+      job.setJar("/home/cloudera/ahae/target/ahae.jar");
 
-      // Since we might be running directly from Eclipse, let's hard code the jar path 
-      job.setJar("/home/cloudera/ahae/target/ahae.jar"); // <4>
+      job.setMapperClass(ConvertToHFilesMapper.class); // <4>
+      job.setMapOutputKeyClass(ImmutableBytesWritable.class); // <5>
+      job.setMapOutputValueClass(KeyValue.class); // <6>
 
-      job.setMapperClass(ConvertToHFilesMapper.class); // <5>
-      job.setMapOutputKeyClass(ImmutableBytesWritable.class); // <6>
-      job.setMapOutputValueClass(KeyValue.class); // <7>
-
-      FileInputFormat.setInputPaths(job, inputPath); // <8>
-      HFileOutputFormat2.setOutputPath(job, new Path(outputPath)); // <9>
+      FileInputFormat.setInputPaths(job, inputPath);
+      HFileOutputFormat2.setOutputPath(job, new Path(outputPath));
       // end::SETUP[]
 
       if (!job.waitForCompletion(true)) {

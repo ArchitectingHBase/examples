@@ -18,33 +18,38 @@ import org.apache.hadoop.mapreduce.Mapper;
 public class ConvertToHFilesMapper extends Mapper<LongWritable, Text, ImmutableBytesWritable, Cell> {
 
   public static final byte[] CF = Bytes.toBytes("v");
+  public static final ByteArrayOutputStream out = new ByteArrayOutputStream();
+  public static final EncoderFactory encoderFactory = EncoderFactory.get();
+  public static final DatumWriter<Event> writer = new SpecificDatumWriter<Event>(Event.getClassSchema());
+  public static final BinaryEncoder encoder = encoderFactory.binaryEncoder(out, null);
+  public static final Event event = new Event();
+  public static final ImmutableBytesWritable rowKey = new ImmutableBytesWritable();
+
+
 
   @Override
   protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-    // Extract the different fields from the received line.
-    String[] line = value.toString().split(",");
 
-    // Tranfert them 
-    Event event = Event.newBuilder()
-                  .setId(line[0])
-                  .setEventid(line[1])
-                  .setDocType(line[2])
-                  .setPartName(line[3])
-                  .setPartNumber(line[4])
-                  .setVersion(Long.parseLong(line[5]))
-                  .setPayload(line[6])
-                  .build();
+    // tag::MAP[]
+    // Extract the different fields from the received line.
+    String[] line = value.toString().split(","); // <1>
+
+    event.setId(line[0]);
+    event.setEventid(line[1]);
+    event.setDocType(line[2]);
+    event.setPartName(line[3]);
+    event.setPartNumber(line[4]);
+    event.setVersion(Long.parseLong(line[5]));
+    event.setPayload(line[6]);  // <2>
 
     // Serialize the AVRO object into a BytArray
-    ByteArrayOutputStream out = new ByteArrayOutputStream();
-    BinaryEncoder encoder = EncoderFactory.get().binaryEncoder(out, null);
-    DatumWriter<Event> writer = new SpecificDatumWriter<Event>(Event.getClassSchema());
-    writer.write(event, encoder);
+    out.reset(); // <3>
+    writer.write(event, encoder); // <4>
     encoder.flush();
-    out.close();
 
-    ImmutableBytesWritable rowKey = new ImmutableBytesWritable(Bytes.toBytes(line[0]));
-    KeyValue kv = new KeyValue(rowKey.get(), CF, Bytes.toBytes(line[1]), out.toByteArray());
-    context.write (rowKey, kv);
+    rowKey.set(Bytes.toBytes(line[0])); // <5>
+    KeyValue kv = new KeyValue(rowKey.get(), CF, Bytes.toBytes(line[1]), out.toByteArray()); // <6>
+    context.write (rowKey, kv); // <7>
+    // end::MAP[]
   }
 }
