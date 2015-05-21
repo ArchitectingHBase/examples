@@ -10,6 +10,9 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.Admin;
+import org.apache.hadoop.hbase.client.Connection;
+import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.HBaseAdmin;
 
 public class AlterAsync {
@@ -17,10 +20,9 @@ public class AlterAsync {
     // Instantiate default HBase configuration object.
     // Configuration file must be in the classpath
     Configuration config = HBaseConfiguration.create();
-    HBaseAdmin admin = null;
-    try {
-      // Instantiate HBase admin object using the configuration file.
-      admin = new HBaseAdmin(config);
+    try (Connection connection = ConnectionFactory.createConnection(config);
+    	      // Instantiate HBase admin object using the configuration file.
+      Admin admin = connection.getAdmin()) {
 
       // Create a new column descriptor for the family we want to add.
       HColumnDescriptor columnDescriptor = new HColumnDescriptor("f2");
@@ -28,10 +30,10 @@ public class AlterAsync {
       columnDescriptor.setMaxVersions(10);
 
       // Add a new column family to an existing table.
-      admin.addColumn("testtable", columnDescriptor);
+     // admin.addColumn("testtable", columnDescriptor);
 
       // Delete the newly added column family.
-      admin.deleteColumn("testtable", columnDescriptor.getNameAsString());
+     // admin.deleteColumn("testtable", columnDescriptor.getNameAsString());
 
       // Retrieve current table descriptor
       HTableDescriptor tableDescriptor = admin.getTableDescriptor(TableName.valueOf("testtable"));
@@ -41,7 +43,7 @@ public class AlterAsync {
 
       // Apply new updated descriptor to the table
       long time1 = System.currentTimeMillis();
-      admin.modifyTable("testtable", tableDescriptor);
+    //  admin.modifyTable("testtable", tableDescriptor);
       System.out.println (System.currentTimeMillis() - time1);
 
       // Retrieve current table descriptor
@@ -51,7 +53,7 @@ public class AlterAsync {
       tableDescriptor.removeConfiguration("MAX_FILESIZE");
 
       // Apply new updated descriptor to the table
-      admin.modifyTable("testtable", tableDescriptor);
+     // admin.modifyTable("testtable", tableDescriptor);
 
 
       // Add a coprocessor to the table.
@@ -63,21 +65,15 @@ public class AlterAsync {
       tableDescriptor.addCoprocessor(className, jarPath, 123, kvs);
 
       // Apply new updated descriptor to the table
-      admin.modifyTable("testtable", tableDescriptor);
+     // admin.modifyTable("testtable", tableDescriptor);
 
       // Remove coprocessor from the table.
       tableDescriptor.removeCoprocessor(className);
       // Apply new updated descriptor to the table
-      admin.modifyTable("testtable", tableDescriptor);
+    //  admin.modifyTable("testtable", tableDescriptor);
 
     } catch (Exception e) {
       e.printStackTrace();
-    } finally {
-      if (admin != null) try {
-        admin.close();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
     }
   }
 }
