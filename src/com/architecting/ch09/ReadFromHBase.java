@@ -17,13 +17,14 @@ import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.solr.common.SolrInputDocument;
 
 public class ReadFromHBase {
 
   public static final TableName sensorsTableName = TableName.valueOf("sensors");
-  public static final byte[] rowid = Bytes.toBytes("000a");
+  public static final byte[] rowid = Bytes.toBytes("b5e4");
   public static final byte[] family = Bytes.toBytes("v");
-  public static final byte[] qualifier = Bytes.toBytes("f92acb5b-079a-42bc-913a-657f270a3dc1");
+  public static final byte[] qualifier = Bytes.toBytes("f4d87253-0485-4b42-a980-0e23918a2a56");
   public static final Log LOG = LogFactory.getLog(ReadFromHBase.class);
 
   /**

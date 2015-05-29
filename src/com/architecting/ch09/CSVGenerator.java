@@ -68,7 +68,7 @@ public class CSVGenerator {
     BufferedWriter bw;
     try {
       bw = new BufferedWriter (new FileWriter("./resources/ch09/omneo.csv"));
-      for (int index = 0; index < 10000000; index++) {
+      for (int index = 0; index < 1000; index++) {
         String id = generateId();
         bw.write(id);
         bw.write(",");
