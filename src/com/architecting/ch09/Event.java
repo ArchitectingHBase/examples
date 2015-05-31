@@ -7,10 +7,10 @@ package com.architecting.ch09;
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class Event extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Event\",\"namespace\":\"com.architecting.ch09\",\"fields\":[{\"name\":\"id\",\"type\":\"string\"},{\"name\":\"eventid\",\"type\":\"string\"},{\"name\":\"docType\",\"type\":\"string\"},{\"name\":\"partName\",\"type\":\"string\"},{\"name\":\"partNumber\",\"type\":\"string\"},{\"name\":\"version\",\"type\":\"long\"},{\"name\":\"payload\",\"type\":\"string\"}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Event\",\"namespace\":\"com.architecting.ch09\",\"fields\":[{\"name\":\"id\",\"type\":\"string\",\"avro.java.string\":\"String\"},{\"name\":\"eventId\",\"type\":\"string\",\"avro.java.string\":\"String\"},{\"name\":\"docType\",\"type\":\"string\",\"avro.java.string\":\"String\"},{\"name\":\"partName\",\"type\":\"string\",\"avro.java.string\":\"String\"},{\"name\":\"partNumber\",\"type\":\"string\",\"avro.java.string\":\"String\"},{\"name\":\"version\",\"type\":\"long\"},{\"name\":\"payload\",\"type\":\"string\",\"avro.java.string\":\"String\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   @Deprecated public java.lang.CharSequence id;
-  @Deprecated public java.lang.CharSequence eventid;
+  @Deprecated public java.lang.CharSequence eventId;
   @Deprecated public java.lang.CharSequence docType;
   @Deprecated public java.lang.CharSequence partName;
   @Deprecated public java.lang.CharSequence partNumber;
@@ -27,9 +27,9 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
   /**
    * All-args constructor.
    */
-  public Event(java.lang.CharSequence id, java.lang.CharSequence eventid, java.lang.CharSequence docType, java.lang.CharSequence partName, java.lang.CharSequence partNumber, java.lang.Long version, java.lang.CharSequence payload) {
+  public Event(java.lang.CharSequence id, java.lang.CharSequence eventId, java.lang.CharSequence docType, java.lang.CharSequence partName, java.lang.CharSequence partNumber, java.lang.Long version, java.lang.CharSequence payload) {
     this.id = id;
-    this.eventid = eventid;
+    this.eventId = eventId;
     this.docType = docType;
     this.partName = partName;
     this.partNumber = partNumber;
@@ -42,7 +42,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
   public java.lang.Object get(int field$) {
     switch (field$) {
     case 0: return id;
-    case 1: return eventid;
+    case 1: return eventId;
     case 2: return docType;
     case 3: return partName;
     case 4: return partNumber;
@@ -56,7 +56,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
     case 0: id = (java.lang.CharSequence)value$; break;
-    case 1: eventid = (java.lang.CharSequence)value$; break;
+    case 1: eventId = (java.lang.CharSequence)value$; break;
     case 2: docType = (java.lang.CharSequence)value$; break;
     case 3: partName = (java.lang.CharSequence)value$; break;
     case 4: partNumber = (java.lang.CharSequence)value$; break;
@@ -82,18 +82,18 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
   }
 
   /**
-   * Gets the value of the 'eventid' field.
+   * Gets the value of the 'eventId' field.
    */
-  public java.lang.CharSequence getEventid() {
-    return eventid;
+  public java.lang.CharSequence getEventId() {
+    return eventId;
   }
 
   /**
-   * Sets the value of the 'eventid' field.
+   * Sets the value of the 'eventId' field.
    * @param value the value to set.
    */
-  public void setEventid(java.lang.CharSequence value) {
-    this.eventid = value;
+  public void setEventId(java.lang.CharSequence value) {
+    this.eventId = value;
   }
 
   /**
@@ -193,7 +193,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     implements org.apache.avro.data.RecordBuilder<Event> {
 
     private java.lang.CharSequence id;
-    private java.lang.CharSequence eventid;
+    private java.lang.CharSequence eventId;
     private java.lang.CharSequence docType;
     private java.lang.CharSequence partName;
     private java.lang.CharSequence partNumber;
@@ -212,8 +212,8 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
         this.id = data().deepCopy(fields()[0].schema(), other.id);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.eventid)) {
-        this.eventid = data().deepCopy(fields()[1].schema(), other.eventid);
+      if (isValidValue(fields()[1], other.eventId)) {
+        this.eventId = data().deepCopy(fields()[1].schema(), other.eventId);
         fieldSetFlags()[1] = true;
       }
       if (isValidValue(fields()[2], other.docType)) {
@@ -245,8 +245,8 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
         this.id = data().deepCopy(fields()[0].schema(), other.id);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.eventid)) {
-        this.eventid = data().deepCopy(fields()[1].schema(), other.eventid);
+      if (isValidValue(fields()[1], other.eventId)) {
+        this.eventId = data().deepCopy(fields()[1].schema(), other.eventId);
         fieldSetFlags()[1] = true;
       }
       if (isValidValue(fields()[2], other.docType)) {
@@ -296,27 +296,27 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
       return this;
     }
 
-    /** Gets the value of the 'eventid' field */
-    public java.lang.CharSequence getEventid() {
-      return eventid;
+    /** Gets the value of the 'eventId' field */
+    public java.lang.CharSequence getEventId() {
+      return eventId;
     }
     
-    /** Sets the value of the 'eventid' field */
-    public com.architecting.ch09.Event.Builder setEventid(java.lang.CharSequence value) {
+    /** Sets the value of the 'eventId' field */
+    public com.architecting.ch09.Event.Builder setEventId(java.lang.CharSequence value) {
       validate(fields()[1], value);
-      this.eventid = value;
+      this.eventId = value;
       fieldSetFlags()[1] = true;
       return this; 
     }
     
-    /** Checks whether the 'eventid' field has been set */
-    public boolean hasEventid() {
+    /** Checks whether the 'eventId' field has been set */
+    public boolean hasEventId() {
       return fieldSetFlags()[1];
     }
     
-    /** Clears the value of the 'eventid' field */
-    public com.architecting.ch09.Event.Builder clearEventid() {
-      eventid = null;
+    /** Clears the value of the 'eventId' field */
+    public com.architecting.ch09.Event.Builder clearEventId() {
+      eventId = null;
       fieldSetFlags()[1] = false;
       return this;
     }
@@ -450,7 +450,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
       try {
         Event record = new Event();
         record.id = fieldSetFlags()[0] ? this.id : (java.lang.CharSequence) defaultValue(fields()[0]);
-        record.eventid = fieldSetFlags()[1] ? this.eventid : (java.lang.CharSequence) defaultValue(fields()[1]);
+        record.eventId = fieldSetFlags()[1] ? this.eventId : (java.lang.CharSequence) defaultValue(fields()[1]);
         record.docType = fieldSetFlags()[2] ? this.docType : (java.lang.CharSequence) defaultValue(fields()[2]);
         record.partName = fieldSetFlags()[3] ? this.partName : (java.lang.CharSequence) defaultValue(fields()[3]);
         record.partNumber = fieldSetFlags()[4] ? this.partNumber : (java.lang.CharSequence) defaultValue(fields()[4]);

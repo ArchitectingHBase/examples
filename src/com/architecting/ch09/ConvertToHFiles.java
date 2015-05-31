@@ -56,7 +56,7 @@ public class ConvertToHFiles extends Configured implements Tool {
 
       // Since we might be running directly from Eclipse,
       // let's hard code the jar path too. 
-      job.setJar("/home/cloudera/ahae/target/ahae.jar");
+      job.setJar("/home/cloudera/ahae/target/ahae_Main.jar");
 
       job.setMapperClass(ConvertToHFilesMapper.class); // <4>
       job.setMapOutputKeyClass(ImmutableBytesWritable.class); // <5>

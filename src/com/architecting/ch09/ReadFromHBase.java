@@ -22,9 +22,9 @@ import org.apache.solr.common.SolrInputDocument;
 public class ReadFromHBase {
 
   public static final TableName sensorsTableName = TableName.valueOf("sensors");
-  public static final byte[] rowid = Bytes.toBytes("b5e4");
+  public static final byte[] rowid = Bytes.toBytes("1c7f");
   public static final byte[] family = Bytes.toBytes("v");
-  public static final byte[] qualifier = Bytes.toBytes("f4d87253-0485-4b42-a980-0e23918a2a56");
+  public static final byte[] qualifier = Bytes.toBytes("34b43faa-ea68-4a25-b3d4-6bf776d7453c");
   public static final Log LOG = LogFactory.getLog(ReadFromHBase.class);
 
   /**

@@ -7,6 +7,7 @@ import org.apache.avro.io.BinaryEncoder;
 import org.apache.avro.io.DatumWriter;
 import org.apache.avro.io.EncoderFactory;
 import org.apache.avro.specific.SpecificDatumWriter;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
@@ -14,6 +15,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Mapper.Context;
 
 public class ConvertToHFilesMapper extends Mapper<LongWritable, Text, ImmutableBytesWritable, Cell> {
 
@@ -28,6 +30,16 @@ public class ConvertToHFilesMapper extends Mapper<LongWritable, Text, ImmutableB
 
 
   @Override
+  protected void setup(Context context) throws IOException, InterruptedException {
+    // TODO Auto-generated method stub
+    super.setup(context);
+    context.getCounter("Convert", "mapper").increment(1);
+
+  }
+
+
+
+  @Override
   protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
     // tag::MAP[]
@@ -35,7 +47,7 @@ public class ConvertToHFilesMapper extends Mapper<LongWritable, Text, ImmutableB
     String[] line = value.toString().split(","); // <1>
 
     event.setId(line[0]);
-    event.setEventid(line[1]);
+    event.setEventId(line[1]);
     event.setDocType(line[2]);
     event.setPartName(line[3]);
     event.setPartNumber(line[4]);
@@ -47,7 +59,9 @@ public class ConvertToHFilesMapper extends Mapper<LongWritable, Text, ImmutableB
     writer.write(event, encoder); // <4>
     encoder.flush();
 
-    rowKey.set(Bytes.toBytes(line[0])); // <5>
+    rowKey.set(DigestUtils.md5(line[0])); // <5>
+    context.getCounter("Convert", line[2]).increment(1);
+
     KeyValue kv = new KeyValue(rowKey.get(), CF, Bytes.toBytes(line[1]), out.toByteArray()); // <6>
     context.write (rowKey, kv); // <7>
     // end::MAP[]
