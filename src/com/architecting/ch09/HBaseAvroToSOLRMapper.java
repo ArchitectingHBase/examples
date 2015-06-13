@@ -1,10 +1,9 @@
 package com.architecting.ch09;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.UUID;
 
-import org.apache.avro.io.BinaryDecoder;
-import org.apache.avro.io.DecoderFactory;
-import org.apache.avro.specific.SpecificDatumReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.hbase.Cell;
@@ -18,56 +17,51 @@ import org.apache.solr.hadoop.SolrInputDocumentWritable;
 
 
 public class HBaseAvroToSOLRMapper extends TableMapper<Text, SolrInputDocumentWritable> {
-  public static final byte[] family = Bytes.toBytes("v");
-  public static BinaryDecoder decoder = null;
   public static Event event = null;
   public static final Log LOG = LogFactory.getLog(HBaseAvroToSOLRMapper.class);
-  public static boolean exit = false;
+  public Util util = new Util(); // Get a ThreadSafe util class.
+  protected SolrInputDocument inputDocument = new SolrInputDocument();
 
-  /**
-   * Avro returns Utf8 instances for the Strings. We need to convert
-   * them to String instances for clean output.
-   * @param sequence
-   * @return
-   */
-  public static final String clean(CharSequence sequence, Context context) {
-    /*
-    if (sequence instanceof Utf8) {
-      Utf8 utf8 = (Utf8)sequence;
-      context.getCounter("HBaseAvro", "cleaned").increment(1);
-      return new String((utf8).getBytes()).substring(0, utf8.getByteLength());
-    }
-    */
-    return sequence.toString();
-  }
 
   @Override
-  public void map(ImmutableBytesWritable row, Result value, Context context)
+  public void map(ImmutableBytesWritable row, Result values, Context context)
       throws InterruptedException, IOException {
-    for (Cell cell : value.rawCells()) {
+
+    context.getCounter("HBaseAvro", "Total size").increment(values.size());
+    context.getCounter("HBaseAvro", "Uniq size").increment(1);
+    for (Cell cell: values.listCells()) {
       try {
-        SpecificDatumReader<Event> reader = new SpecificDatumReader<Event>(Event.getClassSchema());
-        decoder = DecoderFactory.get().binaryDecoder(Bytes.copy(cell.getValueArray(), cell.getValueOffset(), cell.getValueLength()), decoder);
-        event = reader.read(event, decoder);
-        SolrInputDocument inputDocument = new SolrInputDocument();
+        // tag::SETUP[]
+        event = util.cellToEvent(cell, event); // <1>
 
-        inputDocument.addField("solrkey", event.getId().toString() + event.getEventId().toString());
-        inputDocument.addField("key", Bytes.toString(row.get()));
-        inputDocument.addField("id", clean(event.getId(), context));
-        inputDocument.addField("eventId", clean(event.getEventId(), context));
-        inputDocument.addField("docType", clean(event.getDocType(), context));
-        inputDocument.addField("partName", clean(event.getPartName(), context));
-        inputDocument.addField("partNumber", clean(event.getPartNumber(), context));
+        inputDocument.clear(); // <2>
+        inputDocument.addField("id", UUID.randomUUID().toString()); // <3> 
+        inputDocument.addField("rowkey", row.get());
+        inputDocument.addField("eventId", event.getEventId().toString());
+        inputDocument.addField("docType", event.getDocType().toString());
+        inputDocument.addField("partName", event.getPartName().toString());
+        inputDocument.addField("partNumber", event.getPartNumber().toString());
         inputDocument.addField("version", event.getVersion());
-        inputDocument.addField("payload", clean(event.getPayload(), context));
+        inputDocument.addField("payload", event.getPayload().toString());
 
-        context.write(new Text(cell.getRowArray()), new SolrInputDocumentWritable(inputDocument));
+        context.write(new Text(cell.getRowArray()),
+                          new SolrInputDocumentWritable(inputDocument)); // <4>
+        // end::SETUP[]
         context.getCounter("HBaseAvro", "passed").increment(1);
-        context.getCounter("HBaseAvro", clean(event.getDocType(), context)).increment(1);
       } catch (Exception e) {
         context.getCounter("HBaseAvro", "failed").increment(1);
         LOG.error("Issue for "  + Bytes.toStringBinary(cell.getValueArray()), e);
       }
     }
+  }
+
+
+  @Override
+  protected void setup(Context context) throws IOException,
+      InterruptedException {
+    // TODO Auto-generated method stub
+    super.setup(context);
+    LOG.info("Processing " + context.getInputSplit().toString());
+    LOG.info("Processing " + Arrays.toString(context.getInputSplit().getLocations()));
   }
 }

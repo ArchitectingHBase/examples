@@ -15,7 +15,6 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Mapper.Context;
 
 public class ConvertToHFilesMapper extends Mapper<LongWritable, Text, ImmutableBytesWritable, Cell> {
 
@@ -34,7 +33,6 @@ public class ConvertToHFilesMapper extends Mapper<LongWritable, Text, ImmutableB
     // TODO Auto-generated method stub
     super.setup(context);
     context.getCounter("Convert", "mapper").increment(1);
-
   }
 
 
