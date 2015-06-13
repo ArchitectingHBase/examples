@@ -3,8 +3,8 @@
  "type": "record",
  "name": "Event",
  "fields": [
-     {"name": "id", "type": "string"},
-     {"name": "eventid",  "type": "string"},
+     {"name": "Id",  "type": "string"},
+     {"name": "eventId",  "type": "string"},
      {"name": "docType",  "type": "string"},
      {"name": "partName",  "type": "string"},
      {"name": "partNumber",  "type": "string"},
