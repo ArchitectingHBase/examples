@@ -20,51 +20,49 @@ import org.apache.solr.common.params.ModifiableSolrParams;
 
 import java.io.IOException;
 
-
 public class ReadFromSORL {
 
   public static final TableName sensorsTableName = TableName.valueOf("sensors");
   public static final Log LOG = LogFactory.getLog(ReadFromSORL.class);
 
   public static void main(String[] args) throws SolrServerException, IOException {
-    CloudSolrServer solr = new CloudSolrServer("localhost:2181/solr");
-    solr.setDefaultCollection("Ch09-Collection");
+    // tag::SETUP[]
+    CloudSolrServer solr = new CloudSolrServer("localhost:2181/solr"); // <1>
+    solr.setDefaultCollection("Ch09-Collection"); // <2>
     solr.connect();
 
     ModifiableSolrParams params = new ModifiableSolrParams();
     params.set("qt", "/select");
-    params.set("q", "docType:ALERT AND partName:NE-555");
+    params.set("q", "docType:ALERT AND partName:NE-555"); // <3>
 
-    QueryResponse response = solr.query(params);
-    SolrDocumentList docs = response.getResults();
+    QueryResponse response = solr.query(params); // <4>
+    SolrDocumentList docs = response.getResults(); 
 
     LOG.info("Found " + docs.getNumFound() + " matching documents.");
-    if (docs.getNumFound() == 0)
-      return;
-    LOG.info("First document rowkey is " +
-            Bytes.toStringBinary((byte[])docs.get(0).getFieldValue("rowkey")));
+    if (docs.getNumFound() == 0) return;
+    byte[] firstRowKey = (byte[]) docs.get(0).getFieldValue("rowkey");
+    LOG.info("First document rowkey is " + Bytes.toStringBinary(firstRowKey));
 
     // Retrieve and print the first 10 columns of the first returned document
     Configuration config = HBaseConfiguration.create();
     try (Connection connection = ConnectionFactory.createConnection(config);
         Admin admin = connection.getAdmin();
-        Table sensorsTable = connection.getTable(sensorsTableName)) {  // <1>
-     byte[] rowKey = (byte[])(docs.get(0).getFieldValue("rowkey"));
-     Get get = new Get (rowKey);
+        Table sensorsTable = connection.getTable(sensorsTableName)) {
+      Get get = new Get(firstRowKey); // <5>
 
-     Result result = sensorsTable.get(get);
-     Event event = null;
-     if (result != null && !result.isEmpty()) { // <4>
-       for (int index = 0; index < 10; index++) { // Print first 10 columns
-         if (!result.advance())
-           break; // The is no more column.
-         event = new Util().cellToEvent(result.current(),event); // <5>
-         LOG.info("Retrieved AVRO content: " + event.toString());
-       }
-     } else {
-       LOG.error("Impossible to find requested cell");
-     }
-   }
-  
+      Result result = sensorsTable.get(get);
+      Event event = null;
+      if (result != null && !result.isEmpty()) { // <6>
+        for (int index = 0; index < 10; index++) { // Print first 10 columns
+          if (!result.advance())
+            break; // The is no more column and we have not reached 10.
+          event = new Util().cellToEvent(result.current(), event);
+          LOG.info("Retrieved AVRO content: " + event.toString());
+        }
+      } else {
+        LOG.error("Impossible to find requested cell");
+      }
+    }
+    // end::SETUP[]
   }
 }
