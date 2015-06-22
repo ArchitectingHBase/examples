@@ -57,10 +57,11 @@ public class ConvertToHFilesMapper extends Mapper<LongWritable, Text, ImmutableB
     writer.write(event, encoder); // <4>
     encoder.flush();
 
-    rowKey.set(DigestUtils.md5(line[0])); // <5>
+    byte[] rowKeyBytes = DigestUtils.md5(line[0]);
+    rowKey.set(rowKeyBytes); // <5>
     context.getCounter("Convert", line[2]).increment(1);
 
-    KeyValue kv = new KeyValue(rowKey.get(), CF, Bytes.toBytes(line[1]), out.toByteArray()); // <6>
+    KeyValue kv = new KeyValue(rowKeyBytes, CF, Bytes.toBytes(line[1]), out.toByteArray()); // <6>
     context.write (rowKey, kv); // <7>
     // end::MAP[]
   }
