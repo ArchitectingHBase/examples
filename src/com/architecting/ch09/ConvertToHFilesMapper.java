@@ -19,12 +19,14 @@ import org.apache.hadoop.mapreduce.Mapper;
 public class ConvertToHFilesMapper extends Mapper<LongWritable, Text, ImmutableBytesWritable, Cell> {
 
   public static final byte[] CF = Bytes.toBytes("v");
-  public static final ByteArrayOutputStream out = new ByteArrayOutputStream();
+  // tag::VARIABLES[]
   public static final EncoderFactory encoderFactory = EncoderFactory.get();
+  public static final ByteArrayOutputStream out = new ByteArrayOutputStream();
   public static final DatumWriter<Event> writer = new SpecificDatumWriter<Event>(Event.getClassSchema());
   public static final BinaryEncoder encoder = encoderFactory.binaryEncoder(out, null);
   public static final Event event = new Event();
   public static final ImmutableBytesWritable rowKey = new ImmutableBytesWritable();
+  // end::VARIABLES[]
 
 
 
