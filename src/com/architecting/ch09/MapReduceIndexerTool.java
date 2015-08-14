@@ -162,7 +162,7 @@ public class MapReduceIndexerTool extends Configured implements Tool {
     scan.setCacheBlocks(false);  // <2>
 
     TableMapReduceUtil.initTableMapperJob( // <3>
-      options.inputTable,              // Tnput HBase table name
+      options.inputTable,              // Input HBase table name
       scan,                            // Scan instance to control what to index
       HBaseAvroToSOLRMapper.class,     // Mapper to parse cells content.
       Text.class,                      // Mapper output key
