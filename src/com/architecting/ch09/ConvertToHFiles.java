@@ -52,15 +52,12 @@ public class ConvertToHFiles extends Configured implements Tool {
       job.setSpeculativeExecution(false); // <3>
       job.setReduceSpeculativeExecution(false); // <3>
 
-      job.setJarByClass(ConvertToHFiles.class);
+      job.setJarByClass(ConvertToHFiles.class); // <4>
+      job.setJar("/home/cloudera/ahae/target/ahae.jar"); // <4>
 
-      // Since we might be running directly from Eclipse,
-      // let's hard code the jar path too. 
-      job.setJar("/home/cloudera/ahae/target/ahae.jar");
-
-      job.setMapperClass(ConvertToHFilesMapper.class); // <4>
-      job.setMapOutputKeyClass(ImmutableBytesWritable.class); // <5>
-      job.setMapOutputValueClass(KeyValue.class); // <6>
+      job.setMapperClass(ConvertToHFilesMapper.class); // <5>
+      job.setMapOutputKeyClass(ImmutableBytesWritable.class); // <6>
+      job.setMapOutputValueClass(KeyValue.class); // <7>
 
       FileInputFormat.setInputPaths(job, inputPath);
       HFileOutputFormat2.setOutputPath(job, new Path(outputPath));
