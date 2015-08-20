@@ -22,7 +22,8 @@ public class ConvertToHFilesMapper extends Mapper<LongWritable, Text, ImmutableB
   // tag::VARIABLES[]
   public static final EncoderFactory encoderFactory = EncoderFactory.get();
   public static final ByteArrayOutputStream out = new ByteArrayOutputStream();
-  public static final DatumWriter<Event> writer = new SpecificDatumWriter<Event>(Event.getClassSchema());
+  public static final DatumWriter<Event> writer = new SpecificDatumWriter<Event>
+                                                             (Event.getClassSchema());
   public static final BinaryEncoder encoder = encoderFactory.binaryEncoder(out, null);
   public static final Event event = new Event();
   public static final ImmutableBytesWritable rowKey = new ImmutableBytesWritable();
@@ -54,7 +55,7 @@ public class ConvertToHFilesMapper extends Mapper<LongWritable, Text, ImmutableB
     event.setVersion(Long.parseLong(line[5]));
     event.setPayload(line[6]);  // <2>
 
-    // Serialize the AVRO object into a BytArray
+    // Serialize the AVRO object into a ByteArray
     out.reset(); // <3>
     writer.write(event, encoder); // <4>
     encoder.flush();
