@@ -49,15 +49,12 @@ public class ConvertToHFiles extends Configured implements Tool {
                                         connection.getRegionLocator(tableName)); // <1>
       job.setInputFormatClass(TextInputFormat.class); // <2>
 
-      job.setSpeculativeExecution(false); // <3>
-      job.setReduceSpeculativeExecution(false); // <3>
+      job.setJarByClass(ConvertToHFiles.class); // <3>
+      job.setJar("/home/cloudera/ahae/target/ahae.jar"); // <3>
 
-      job.setJarByClass(ConvertToHFiles.class); // <4>
-      job.setJar("/home/cloudera/ahae/target/ahae.jar"); // <4>
-
-      job.setMapperClass(ConvertToHFilesMapper.class); // <5>
-      job.setMapOutputKeyClass(ImmutableBytesWritable.class); // <6>
-      job.setMapOutputValueClass(KeyValue.class); // <7>
+      job.setMapperClass(ConvertToHFilesMapper.class); // <4>
+      job.setMapOutputKeyClass(ImmutableBytesWritable.class); // <5>
+      job.setMapOutputValueClass(KeyValue.class); // <6>
 
       FileInputFormat.setInputPaths(job, inputPath);
       HFileOutputFormat2.setOutputPath(job, new Path(outputPath));
