@@ -35,8 +35,8 @@ public class ReadFromHBase {
 
       ResultScanner scanner = sensorsTable.getScanner(scan);
       Result result = scanner.next(); // <3>
-      if (result != null && !result.isEmpty()) { // <4>
-        Event event = new Util().cellToEvent(result.listCells().get(0), null); // <5>
+      if (result != null && !result.isEmpty()) {
+        Event event = new Util().cellToEvent(result.listCells().get(0), null); // <4>
         LOG.info("Retrived AVRO content: " + event.toString());
       } else {
         LOG.error("Impossible to find requested cell");
