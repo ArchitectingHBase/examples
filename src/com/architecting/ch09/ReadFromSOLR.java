@@ -55,7 +55,7 @@ public class ReadFromSOLR {
       if (result != null && !result.isEmpty()) { // <6>
         for (int index = 0; index < 10; index++) { // Print first 10 columns
           if (!result.advance())
-            break; // The is no more column and we have not reached 10.
+            break; // There are no more columns and we have not reached 10.
           event = new Util().cellToEvent(result.current(), event);
           LOG.info("Retrieved AVRO content: " + event.toString());
         }
