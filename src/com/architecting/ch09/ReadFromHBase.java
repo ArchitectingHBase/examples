@@ -29,7 +29,6 @@ public class ReadFromHBase {
     Configuration config = HBaseConfiguration.create();
     // tag::SETUP[]
     try (Connection connection = ConnectionFactory.createConnection(config);
-         Admin admin = connection.getAdmin();
          Table sensorsTable = connection.getTable(sensorsTableName)) {  // <1>
       Scan scan = new Scan ();
       scan.setCaching(1); // <2>
