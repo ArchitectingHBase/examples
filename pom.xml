@@ -42,19 +42,23 @@
 			<artifactId>solr-solrj</artifactId>
 			<version>${solr.version}</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-codecs</artifactId>
 			<version>${solr.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.apache.flume</groupId>
+			<artifactId>flume-ng-core</artifactId>
+			<version>1.6.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-core</artifactId>
 			<version>${lucene.version}</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.kitesdk</groupId>
 			<artifactId>kite-morphlines-all</artifactId>
