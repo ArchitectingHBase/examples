@@ -14,6 +14,7 @@ import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.io.compress.Compression.Algorithm;
 import org.apache.hadoop.hbase.regionserver.BloomType;
+import org.apache.hadoop.hbase.util.RegionSplitter.UniformSplit;
 
 public class CreateTable {
   
@@ -25,13 +26,14 @@ public class CreateTable {
         Admin admin = connection.getAdmin();) {
       LOG.info("Starting table creation");
       // tag::CREATE[]
-      HTableDescriptor desc =
-                          new HTableDescriptor(TableName.valueOf("documents"));
+      TableName documents = TableName.valueOf("documents");
+      HTableDescriptor desc = new HTableDescriptor(documents);
       HColumnDescriptor family = new HColumnDescriptor("c");
       family.setCompressionType(Algorithm.GZ);
       family.setBloomFilterType(BloomType.NONE);
       desc.addFamily(family);
-      admin.createTable(desc);
+      UniformSplit uniformSplit = new UniformSplit();
+      admin.createTable(desc, uniformSplit.split(8));
       // end::CREATE[]
       LOG.info("Table successfuly created");
     }
