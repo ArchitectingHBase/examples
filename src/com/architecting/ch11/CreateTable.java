@@ -23,6 +23,7 @@ public class CreateTable {
       ZooKeeperConnectionException, IOException {
     try (Connection connection = ConnectionFactory.createConnection();
         Admin admin = connection.getAdmin();) {
+      LOG.info("Starting table creation");
       // tag::CREATE[]
       HTableDescriptor desc =
                           new HTableDescriptor(TableName.valueOf("documents"));
