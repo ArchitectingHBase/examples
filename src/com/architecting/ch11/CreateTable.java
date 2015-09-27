@@ -16,6 +16,7 @@ import org.apache.hadoop.hbase.io.compress.Compression.Algorithm;
 import org.apache.hadoop.hbase.regionserver.BloomType;
 
 public class CreateTable {
+  
   public static final Log LOG = LogFactory.getLog(CreateTable.class);
 
   public static void main(String[] args) throws MasterNotRunningException,
@@ -23,7 +24,8 @@ public class CreateTable {
     try (Connection connection = ConnectionFactory.createConnection();
         Admin admin = connection.getAdmin();) {
       // tag::CREATE[]
-      HTableDescriptor desc = new HTableDescriptor(TableName.valueOf("documents"));
+      HTableDescriptor desc =
+                          new HTableDescriptor(TableName.valueOf("documents"));
       HColumnDescriptor family = new HColumnDescriptor("c");
       family.setCompressionType(Algorithm.GZ);
       family.setBloomFilterType(BloomType.NONE);
