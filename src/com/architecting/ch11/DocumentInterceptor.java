@@ -157,6 +157,7 @@ public class DocumentInterceptor implements Interceptor {
           }
           if ((firstCell != currentCell) && StringUtils.isNotBlank(lastName)
               && StringUtils.isNotBlank(firstName)) { // <4>
+            LOG.info("Need to update first cell. Updating headers.");
             document = cellToAvro(firstCell, document);
             document.setFirstName(firstName);
             document.setLastName(lastName);

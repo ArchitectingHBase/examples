@@ -32,6 +32,7 @@ public class DocumentSerializer implements HbaseEventSerializer {
   private BinaryDecoder decoder = null;
   private Document document = null;
   private Map<String, String> headers = null;
+  private SpecificDatumReader<Document> reader = null;
 
   @Override
   public void configure(Context context) {
@@ -52,6 +53,7 @@ public class DocumentSerializer implements HbaseEventSerializer {
     this.payload = event.getBody(); // <1>
     this.cf = cf;
     this.headers = event.getHeaders();
+    reader = new SpecificDatumReader<Document>(Document.class);
   }
 
   @Override
@@ -60,8 +62,6 @@ public class DocumentSerializer implements HbaseEventSerializer {
     List<Row> actions = new LinkedList<Row>();
     try {
       decoder = DecoderFactory.get().binaryDecoder(payload, decoder);
-      SpecificDatumReader<Document> reader =
-          new SpecificDatumReader<Document>(Document.class);
       document = reader.read(document, decoder); // <2>
       byte[] rowKeyBytes =
           Bytes.add(DigestUtils.md5("" + document.getSin()),
