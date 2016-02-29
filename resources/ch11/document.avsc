@@ -1,0 +1,10 @@
+{"namespace": "com.architecting.ch11",
+ "type": "record",
+ "name": "Document",
+ "fields": [
+     {"name": "sin", "type": "long"},
+     {"name": "firstName", "type": "string"},
+     {"name": "lastName", "type": "string"},
+     {"name": "comment", "type": "string"}
+ ]
+}
