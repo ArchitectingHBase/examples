@@ -20,15 +20,18 @@
 		<jdkLevel>1.7</jdkLevel>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.build.outputEncoding>UTF-8</project.build.outputEncoding>
-		<hadoop.version>2.6.0-cdh5.4.0</hadoop.version>
-		<hadoop.mr1.version>2.4.1</hadoop.mr1.version>
+		<hadoop.version>2.6.0-cdh5.4.2.1</hadoop.version>
+		<hadoop.mr1.version>2.6.0-mr1-cdh5.4.2.1</hadoop.mr1.version>
 		<junit.version>4.8.1</junit.version>
 		<jdo2-api.version>2.2</jdo2-api.version>
-		<hbase.version>1.0.0-cdh5.4.0</hbase.version>
-		<kite.version>1.0.0-cdh5.4.0</kite.version>
+		<hbase.version>1.2.0-cdh5.7.0</hbase.version>
 		<argparse4j.version>0.4.3</argparse4j.version>
-		<solr.version>4.10.3-cdh5.4.0</solr.version>
+		<solr.version>4.10.3-cdh5.7.0</solr.version>
 		<lucene.version>4.10.3</lucene.version>
+		<flume.version>1.6.0-cdh5.7.0</flume.version>
+		<spark.version>1.6.0-cdh5.7.0</spark.version>
+		<scala.binary.version>2.10</scala.binary.version>
+		<kite.version>1.0.0-cdh5.7.0</kite.version>
 	</properties>
 	<dependencies>
 		<dependency> <!-- see http://lucene.apache.org/solr -->
@@ -42,7 +45,42 @@
 			<artifactId>solr-solrj</artifactId>
 			<version>${solr.version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-core_${scala.binary.version}</artifactId>
+			<version>${spark.version}</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<!-- make sure wrong scala version is not pulled in -->
+					<groupId>org.scala-lang</groupId>
+					<artifactId>scala-library</artifactId>
+				</exclusion>
+				<exclusion>
+					<!-- make sure wrong scala version is not pulled in -->
+					<groupId>org.scala-lang</groupId>
+					<artifactId>scalap</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-streaming_${scala.binary.version}</artifactId>
+			<version>${spark.version}</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<!-- make sure wrong scala version is not pulled in -->
+					<groupId>org.scala-lang</groupId>
+					<artifactId>scala-library</artifactId>
+				</exclusion>
+				<exclusion>
+					<!-- make sure wrong scala version is not pulled in -->
+					<groupId>org.scala-lang</groupId>
+					<artifactId>scalap</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-codecs</artifactId>
@@ -51,7 +89,18 @@
 		<dependency>
 			<groupId>org.apache.flume</groupId>
 			<artifactId>flume-ng-core</artifactId>
-			<version>1.6.0</version>
+			<version>${flume.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.flume.flume-ng-sinks</groupId>
+			<artifactId>flume-ng-kafka-sink</artifactId>
+			<version>${flume.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.flume.flume-ng-sinks</groupId>
+			<artifactId>flume-ng-hbase-sink</artifactId>
+			<version>${flume.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
@@ -96,7 +145,6 @@
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-solrj</artifactId>
 			<version>4.10.3-cdh5.4.0</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.jdo</groupId>
@@ -157,6 +205,17 @@
 			<groupId>org.apache.hbase</groupId>
 			<artifactId>hbase-client</artifactId>
 			<version>${hbase.version}</version>
+			<classifier>sources</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.hbase</groupId>
+			<artifactId>hbase-client</artifactId>
+			<version>${hbase.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.hbase</groupId>
+			<artifactId>hbase-spark</artifactId>
+			<version>${hbase.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.hbase</groupId>
@@ -165,8 +224,15 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.hbase</groupId>
+			<artifactId>hbase-server</artifactId>
+			<version>${hbase.version}</version>
+			<classifier>sources</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.hbase</groupId>
 			<artifactId>hbase-common</artifactId>
 			<version>${hbase.version}</version>
+			<classifier>sources</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.hbase</groupId>
