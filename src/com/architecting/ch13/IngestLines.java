@@ -35,7 +35,7 @@ public class IngestLines {
 
 	public static void processVersion1() {
 		long time1 = System.currentTimeMillis();
-	      // tag::CREATE[]
+	      // tag::BULKPUT[]
 		SparkConf sparkConf = new SparkConf().setAppName("IngestLines ")
 				.setMaster("local[2]");
 		JavaSparkContext jsc = new JavaSparkContext(sparkConf);
@@ -55,7 +55,7 @@ public class IngestLines {
 			}
 		});
 		jsc.close();
-	      // end::CREATE[]
+	      // end::BULKPUT[]
 		long time2 = System.currentTimeMillis();
 		System.out.println("####################################################### Took " + (time2 - time1) + " milliseconds");
 	}
