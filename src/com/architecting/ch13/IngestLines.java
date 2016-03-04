@@ -1,20 +1,17 @@
 package com.architecting.ch13;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.BufferedMutator;
-import org.apache.hadoop.hbase.client.BufferedMutatorImpl;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.Put;
-import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.client.Table;;
 import org.apache.hadoop.hbase.spark.JavaHBaseContext;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.spark.SparkConf;
@@ -33,6 +30,7 @@ public class IngestLines {
   public static final TableName TABLE_NAME = TableName.valueOf("user");
   public static final byte[] COLUMN_FAMILY = Bytes.toBytes("segment");
 
+  @SuppressWarnings("serial")
   public static void processVersion1() {
     long time1 = System.currentTimeMillis();
     // tag::BULKPUT[]
@@ -61,18 +59,19 @@ jsc.close();
     System.out.println("Took " + (time2 - time1) + " milliseconds");
   }
 
+  @SuppressWarnings("serial")
   public static void processVersion2() {
 long time1 = System.currentTimeMillis();
 // tag::DETAILED[]
 SparkConf sparkConf = new SparkConf().setAppName("IngestLines ")
-                                     .setMaster("local[2]");
+                                      .setMaster("local[2]");
 JavaSparkContext jsc = new JavaSparkContext(sparkConf);
 Configuration conf = HBaseConfiguration.create();
 JavaHBaseContext hbaseContext = new JavaHBaseContext(jsc, conf);
 JavaRDD<String> textFile = 
                    jsc.textFile("hdfs://localhost/user/cloudera/data.txt");
 
-PairFunction<String, String, String> linesplit =
+PairFunction<String, String, String> linesplit = // <1>
 new PairFunction<String, String, String>() {
   public Tuple2<String, String> call(String s) {
     int index = s.indexOf("|");
@@ -109,10 +108,10 @@ new Function2<List<String>, List<String>, List<String>>() {
   }
 };
 
-JavaPairRDD<String, List<String>> keyValues =
+JavaPairRDD<String, List<String>> keyValues = // <2>
             pairs.combineByKey(createCombiner, mergeValue, mergeCombiners);
 
-JavaRDD<Put> keyValuesPuts = keyValues.map(
+JavaRDD<Put> keyValuesPuts = keyValues.map( // <3>
 new Function<Tuple2<String, List<String>>, Put>() {
   @Override
   public Put call(Tuple2<String, List<String>> v1) throws Exception {
@@ -130,7 +129,7 @@ new Function<Tuple2<String, List<String>>, Put>() {
   }
 });
 
-hbaseContext.foreachPartition(keyValuesPuts,
+hbaseContext.foreachPartition(keyValuesPuts, // <4>
   new VoidFunction<Tuple2<Iterator<Put>, Connection>>() {
     @Override
     public void call(Tuple2<Iterator<Put>, Connection> t) throws Exception {
