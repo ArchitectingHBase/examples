@@ -152,7 +152,6 @@ long time2 = System.currentTimeMillis();
 System.out.println(" Took " + (time2 - time1) + " milliseconds");
   }
 
-  @SuppressWarnings("serial")
   public static void main(String[] args) {
     processVersion2();
     processVersion1();
