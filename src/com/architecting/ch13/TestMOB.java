@@ -18,7 +18,7 @@ public class TestMOB {
   public static final byte[] columnFamily = Bytes.toBytes("f");
   public static final byte[] columnQualifierOnePiece = Bytes.toBytes(0);
   
-  // tag::MOB[]
+  // tag::SPLIT[]
   public static void putBigCell (Table table, byte[] key, byte[] value) throws IOException {
     if (value.length < 10 * MB) {
       // The value is small enough to be handle as a single HBase cell.
@@ -46,7 +46,7 @@ public class TestMOB {
       table.put(put);
     } 
   }
-  // end::MOB[]
+  // end::SPLIT[]
 
   public static void main(String[] args) throws IOException {
     Configuration config = HBaseConfiguration.create();
