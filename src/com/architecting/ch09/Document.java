@@ -3,7 +3,7 @@
  * 
  * DO NOT EDIT DIRECTLY
  */
-package com.architecting.ch11;  
+package com.architecting.ch09;  
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class Document extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
@@ -115,18 +115,18 @@ public class Document extends org.apache.avro.specific.SpecificRecordBase implem
   }
 
   /** Creates a new Document RecordBuilder */
-  public static com.architecting.ch11.Document.Builder newBuilder() {
-    return new com.architecting.ch11.Document.Builder();
+  public static com.architecting.ch09.Document.Builder newBuilder() {
+    return new com.architecting.ch09.Document.Builder();
   }
   
   /** Creates a new Document RecordBuilder by copying an existing Builder */
-  public static com.architecting.ch11.Document.Builder newBuilder(com.architecting.ch11.Document.Builder other) {
-    return new com.architecting.ch11.Document.Builder(other);
+  public static com.architecting.ch09.Document.Builder newBuilder(com.architecting.ch09.Document.Builder other) {
+    return new com.architecting.ch09.Document.Builder(other);
   }
   
   /** Creates a new Document RecordBuilder by copying an existing Document instance */
-  public static com.architecting.ch11.Document.Builder newBuilder(com.architecting.ch11.Document other) {
-    return new com.architecting.ch11.Document.Builder(other);
+  public static com.architecting.ch09.Document.Builder newBuilder(com.architecting.ch09.Document other) {
+    return new com.architecting.ch09.Document.Builder(other);
   }
   
   /**
@@ -142,11 +142,11 @@ public class Document extends org.apache.avro.specific.SpecificRecordBase implem
 
     /** Creates a new Builder */
     private Builder() {
-      super(com.architecting.ch11.Document.SCHEMA$);
+      super(com.architecting.ch09.Document.SCHEMA$);
     }
     
     /** Creates a Builder by copying an existing Builder */
-    private Builder(com.architecting.ch11.Document.Builder other) {
+    private Builder(com.architecting.ch09.Document.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.sin)) {
         this.sin = data().deepCopy(fields()[0].schema(), other.sin);
@@ -167,8 +167,8 @@ public class Document extends org.apache.avro.specific.SpecificRecordBase implem
     }
     
     /** Creates a Builder by copying an existing Document instance */
-    private Builder(com.architecting.ch11.Document other) {
-            super(com.architecting.ch11.Document.SCHEMA$);
+    private Builder(com.architecting.ch09.Document other) {
+            super(com.architecting.ch09.Document.SCHEMA$);
       if (isValidValue(fields()[0], other.sin)) {
         this.sin = data().deepCopy(fields()[0].schema(), other.sin);
         fieldSetFlags()[0] = true;
@@ -193,7 +193,7 @@ public class Document extends org.apache.avro.specific.SpecificRecordBase implem
     }
     
     /** Sets the value of the 'sin' field */
-    public com.architecting.ch11.Document.Builder setSin(long value) {
+    public com.architecting.ch09.Document.Builder setSin(long value) {
       validate(fields()[0], value);
       this.sin = value;
       fieldSetFlags()[0] = true;
@@ -206,7 +206,7 @@ public class Document extends org.apache.avro.specific.SpecificRecordBase implem
     }
     
     /** Clears the value of the 'sin' field */
-    public com.architecting.ch11.Document.Builder clearSin() {
+    public com.architecting.ch09.Document.Builder clearSin() {
       fieldSetFlags()[0] = false;
       return this;
     }
@@ -217,7 +217,7 @@ public class Document extends org.apache.avro.specific.SpecificRecordBase implem
     }
     
     /** Sets the value of the 'firstName' field */
-    public com.architecting.ch11.Document.Builder setFirstName(java.lang.CharSequence value) {
+    public com.architecting.ch09.Document.Builder setFirstName(java.lang.CharSequence value) {
       validate(fields()[1], value);
       this.firstName = value;
       fieldSetFlags()[1] = true;
@@ -230,7 +230,7 @@ public class Document extends org.apache.avro.specific.SpecificRecordBase implem
     }
     
     /** Clears the value of the 'firstName' field */
-    public com.architecting.ch11.Document.Builder clearFirstName() {
+    public com.architecting.ch09.Document.Builder clearFirstName() {
       firstName = null;
       fieldSetFlags()[1] = false;
       return this;
@@ -242,7 +242,7 @@ public class Document extends org.apache.avro.specific.SpecificRecordBase implem
     }
     
     /** Sets the value of the 'lastName' field */
-    public com.architecting.ch11.Document.Builder setLastName(java.lang.CharSequence value) {
+    public com.architecting.ch09.Document.Builder setLastName(java.lang.CharSequence value) {
       validate(fields()[2], value);
       this.lastName = value;
       fieldSetFlags()[2] = true;
@@ -255,7 +255,7 @@ public class Document extends org.apache.avro.specific.SpecificRecordBase implem
     }
     
     /** Clears the value of the 'lastName' field */
-    public com.architecting.ch11.Document.Builder clearLastName() {
+    public com.architecting.ch09.Document.Builder clearLastName() {
       lastName = null;
       fieldSetFlags()[2] = false;
       return this;
@@ -267,7 +267,7 @@ public class Document extends org.apache.avro.specific.SpecificRecordBase implem
     }
     
     /** Sets the value of the 'comment' field */
-    public com.architecting.ch11.Document.Builder setComment(java.lang.CharSequence value) {
+    public com.architecting.ch09.Document.Builder setComment(java.lang.CharSequence value) {
       validate(fields()[3], value);
       this.comment = value;
       fieldSetFlags()[3] = true;
@@ -280,7 +280,7 @@ public class Document extends org.apache.avro.specific.SpecificRecordBase implem
     }
     
     /** Clears the value of the 'comment' field */
-    public com.architecting.ch11.Document.Builder clearComment() {
+    public com.architecting.ch09.Document.Builder clearComment() {
       comment = null;
       fieldSetFlags()[3] = false;
       return this;

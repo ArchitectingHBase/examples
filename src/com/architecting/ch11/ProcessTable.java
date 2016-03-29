@@ -1,4 +1,4 @@
-package com.architecting.ch13;
+package com.architecting.ch11;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,7 +28,8 @@ public static final byte[] COLUMN_FAMILY = Bytes.toBytes("segment");
 @SuppressWarnings("serial")
 public static void processVersion1() {
   // tag::INIT[]
-  SparkConf sc = new SparkConf().setAppName("ProcessTable").setMaster("local[2]");
+  // SparkConf sc = new SparkConf().setAppName("ProcessTable").setMaster("local[2]");
+  SparkConf sc = new SparkConf().setAppName("ProcessTable");
   JavaSparkContext jsc = new JavaSparkContext(sc);
   Configuration conf = HBaseConfiguration.create();
 
@@ -40,7 +41,7 @@ public static void processVersion1() {
   scan.setFilter(kof);
        
   JavaRDD<Tuple2<ImmutableBytesWritable, Result>> data =
-                          hbaseContext.hbaseRDD(TableName.valueOf("user"), scan);
+                          hbaseContext.hbaseRDD(TABLE_NAME, scan);
   // end::INIT[]
   
   long time1 = System.currentTimeMillis();

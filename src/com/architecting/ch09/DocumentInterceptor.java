@@ -1,4 +1,4 @@
-package com.architecting.ch11;
+package com.architecting.ch09;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

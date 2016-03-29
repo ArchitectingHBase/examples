@@ -3,7 +3,7 @@
  * 
  * DO NOT EDIT DIRECTLY
  */
-package com.architecting.ch09;  
+package com.architecting.ch07;  
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class Event extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
@@ -172,18 +172,18 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
   }
 
   /** Creates a new Event RecordBuilder */
-  public static com.architecting.ch09.Event.Builder newBuilder() {
-    return new com.architecting.ch09.Event.Builder();
+  public static com.architecting.ch07.Event.Builder newBuilder() {
+    return new com.architecting.ch07.Event.Builder();
   }
   
   /** Creates a new Event RecordBuilder by copying an existing Builder */
-  public static com.architecting.ch09.Event.Builder newBuilder(com.architecting.ch09.Event.Builder other) {
-    return new com.architecting.ch09.Event.Builder(other);
+  public static com.architecting.ch07.Event.Builder newBuilder(com.architecting.ch07.Event.Builder other) {
+    return new com.architecting.ch07.Event.Builder(other);
   }
   
   /** Creates a new Event RecordBuilder by copying an existing Event instance */
-  public static com.architecting.ch09.Event.Builder newBuilder(com.architecting.ch09.Event other) {
-    return new com.architecting.ch09.Event.Builder(other);
+  public static com.architecting.ch07.Event.Builder newBuilder(com.architecting.ch07.Event other) {
+    return new com.architecting.ch07.Event.Builder(other);
   }
   
   /**
@@ -202,11 +202,11 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
 
     /** Creates a new Builder */
     private Builder() {
-      super(com.architecting.ch09.Event.SCHEMA$);
+      super(com.architecting.ch07.Event.SCHEMA$);
     }
     
     /** Creates a Builder by copying an existing Builder */
-    private Builder(com.architecting.ch09.Event.Builder other) {
+    private Builder(com.architecting.ch07.Event.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.Id)) {
         this.Id = data().deepCopy(fields()[0].schema(), other.Id);
@@ -239,8 +239,8 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     }
     
     /** Creates a Builder by copying an existing Event instance */
-    private Builder(com.architecting.ch09.Event other) {
-            super(com.architecting.ch09.Event.SCHEMA$);
+    private Builder(com.architecting.ch07.Event other) {
+            super(com.architecting.ch07.Event.SCHEMA$);
       if (isValidValue(fields()[0], other.Id)) {
         this.Id = data().deepCopy(fields()[0].schema(), other.Id);
         fieldSetFlags()[0] = true;
@@ -277,7 +277,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     }
     
     /** Sets the value of the 'Id' field */
-    public com.architecting.ch09.Event.Builder setId(java.lang.CharSequence value) {
+    public com.architecting.ch07.Event.Builder setId(java.lang.CharSequence value) {
       validate(fields()[0], value);
       this.Id = value;
       fieldSetFlags()[0] = true;
@@ -290,7 +290,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     }
     
     /** Clears the value of the 'Id' field */
-    public com.architecting.ch09.Event.Builder clearId() {
+    public com.architecting.ch07.Event.Builder clearId() {
       Id = null;
       fieldSetFlags()[0] = false;
       return this;
@@ -302,7 +302,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     }
     
     /** Sets the value of the 'eventId' field */
-    public com.architecting.ch09.Event.Builder setEventId(java.lang.CharSequence value) {
+    public com.architecting.ch07.Event.Builder setEventId(java.lang.CharSequence value) {
       validate(fields()[1], value);
       this.eventId = value;
       fieldSetFlags()[1] = true;
@@ -315,7 +315,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     }
     
     /** Clears the value of the 'eventId' field */
-    public com.architecting.ch09.Event.Builder clearEventId() {
+    public com.architecting.ch07.Event.Builder clearEventId() {
       eventId = null;
       fieldSetFlags()[1] = false;
       return this;
@@ -327,7 +327,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     }
     
     /** Sets the value of the 'docType' field */
-    public com.architecting.ch09.Event.Builder setDocType(java.lang.CharSequence value) {
+    public com.architecting.ch07.Event.Builder setDocType(java.lang.CharSequence value) {
       validate(fields()[2], value);
       this.docType = value;
       fieldSetFlags()[2] = true;
@@ -340,7 +340,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     }
     
     /** Clears the value of the 'docType' field */
-    public com.architecting.ch09.Event.Builder clearDocType() {
+    public com.architecting.ch07.Event.Builder clearDocType() {
       docType = null;
       fieldSetFlags()[2] = false;
       return this;
@@ -352,7 +352,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     }
     
     /** Sets the value of the 'partName' field */
-    public com.architecting.ch09.Event.Builder setPartName(java.lang.CharSequence value) {
+    public com.architecting.ch07.Event.Builder setPartName(java.lang.CharSequence value) {
       validate(fields()[3], value);
       this.partName = value;
       fieldSetFlags()[3] = true;
@@ -365,7 +365,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     }
     
     /** Clears the value of the 'partName' field */
-    public com.architecting.ch09.Event.Builder clearPartName() {
+    public com.architecting.ch07.Event.Builder clearPartName() {
       partName = null;
       fieldSetFlags()[3] = false;
       return this;
@@ -377,7 +377,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     }
     
     /** Sets the value of the 'partNumber' field */
-    public com.architecting.ch09.Event.Builder setPartNumber(java.lang.CharSequence value) {
+    public com.architecting.ch07.Event.Builder setPartNumber(java.lang.CharSequence value) {
       validate(fields()[4], value);
       this.partNumber = value;
       fieldSetFlags()[4] = true;
@@ -390,7 +390,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     }
     
     /** Clears the value of the 'partNumber' field */
-    public com.architecting.ch09.Event.Builder clearPartNumber() {
+    public com.architecting.ch07.Event.Builder clearPartNumber() {
       partNumber = null;
       fieldSetFlags()[4] = false;
       return this;
@@ -402,7 +402,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     }
     
     /** Sets the value of the 'version' field */
-    public com.architecting.ch09.Event.Builder setVersion(long value) {
+    public com.architecting.ch07.Event.Builder setVersion(long value) {
       validate(fields()[5], value);
       this.version = value;
       fieldSetFlags()[5] = true;
@@ -415,7 +415,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     }
     
     /** Clears the value of the 'version' field */
-    public com.architecting.ch09.Event.Builder clearVersion() {
+    public com.architecting.ch07.Event.Builder clearVersion() {
       fieldSetFlags()[5] = false;
       return this;
     }
@@ -426,7 +426,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     }
     
     /** Sets the value of the 'payload' field */
-    public com.architecting.ch09.Event.Builder setPayload(java.lang.CharSequence value) {
+    public com.architecting.ch07.Event.Builder setPayload(java.lang.CharSequence value) {
       validate(fields()[6], value);
       this.payload = value;
       fieldSetFlags()[6] = true;
@@ -439,7 +439,7 @@ public class Event extends org.apache.avro.specific.SpecificRecordBase implement
     }
     
     /** Clears the value of the 'payload' field */
-    public com.architecting.ch09.Event.Builder clearPayload() {
+    public com.architecting.ch07.Event.Builder clearPayload() {
       payload = null;
       fieldSetFlags()[6] = false;
       return this;

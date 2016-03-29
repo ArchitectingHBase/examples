@@ -1,4 +1,4 @@
-package com.architecting.ch11;
+package com.architecting.ch09;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +21,7 @@ import org.apache.hadoop.hbase.client.Row;
 import org.apache.hadoop.hbase.util.Base64;
 import org.apache.hadoop.hbase.util.Bytes;
 
-import static com.architecting.ch11.DocumentInterceptor.*;
+import static com.architecting.ch09.DocumentInterceptor.*;
 
 public class DocumentSerializer implements HbaseEventSerializer {
 
