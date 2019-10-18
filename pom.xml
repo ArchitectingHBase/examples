@@ -26,7 +26,7 @@
 		<hbase.version>1.2.0-cdh5.7.0</hbase.version>
 		<argparse4j.version>0.4.3</argparse4j.version>
 		<solr.version>4.10.3-cdh5.7.0</solr.version>
-		<lucene.version>4.10.3</lucene.version>
+		<lucene.version>7.1.0</lucene.version>
 		<flume.version>1.6.0-cdh5.7.0</flume.version>
 		<spark.version>1.6.0-cdh5.7.0</spark.version>
 		<scala.binary.version>2.10</scala.binary.version>
