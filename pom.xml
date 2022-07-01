@@ -20,7 +20,7 @@
 		<jdkLevel>1.7</jdkLevel>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.build.outputEncoding>UTF-8</project.build.outputEncoding>
-		<hadoop.version>2.6.0-cdh5.7.0</hadoop.version>
+		<hadoop.version>2.7.0</hadoop.version>
 		<junit.version>4.8.1</junit.version>
 		<jdo2-api.version>2.2</jdo2-api.version>
 		<hbase.version>1.2.0-cdh5.7.0</hbase.version>
